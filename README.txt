@@ -52,7 +52,7 @@ Follow these instructions to integrate word beam search decoding:
 
 1. Clone repository [CTCWordBeamSearch](https://github.com/githubharald/CTCWordBeamSearch).
 2. Compile custom TF operation (follow instructions given in README).
-3. Copy binary `TFWordBeamSearch.so` from the CTCWordBeamSearch repository to the `src/` directory of the SimpleHTR repository.
+3. Copy binary `TFWordBeamSearch.so` from the CTCWordBeamSearch repository to the `src/` directory of  repository.
 
 Word beam search can now be enabled by setting the corresponding command line argument.
 The dictionary is created (in training and validation mode) by using all words contained in the IAM dataset (i.e. also including words from validation set) and is saved into the file `data/corpus.txt`.
@@ -127,7 +127,7 @@ The illustration below gives an overview of the NN (green: operations, pink: dat
 * The CTC layer either calculates the loss value given the matrix and the ground-truth text (when training), or it decodes the matrix to the final text with best path decoding or beam search decoding (when inferring)
 * Batch size is set to 50
 
-![nn_overview](./doc/nn_overview.png)
+
 
 
 ### Improve accuracy
@@ -152,14 +152,4 @@ Run `python analyze.py` with the following arguments to analyze the image file `
 * `--invariance`: check if the model is invariant to horizontal translations of the text.
 * No argument provided: show the results.
 
-Results are shown in the plots below.
-The pixel relevance (left) shows how a pixel influences the score for the correct class.
-Red pixels vote for the correct class, while blue pixels vote against the correct class.
-It can be seen that the white space above vertical lines in images is important for the classifier to decide against the "i" character with its superscript dot.
-Draw a dot above the "a" (red region in plot) and you will get "aive" instead of "are".
-
-The second plot (right) shows how the probability of the ground-truth text changes when the text is shifted to the right.
-As can be seen, the model is not translation invariant, as all training images from IAM are left-aligned.
-Adding data augmentation which uses random text-alignments can improve the translation invariance of the model.
-More information can be found in [this article](https://towardsdatascience.com/6c04864b8a98).
 
